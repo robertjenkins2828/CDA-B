@@ -45,8 +45,220 @@
     file management
     peripheral and input/output device management
     security management
-    
 
+  **process management**
+   a program - is a set of human readable instructions that are intended for eventual execution on a computer. programs are often referred to as source code.
+   
+   an executable - also known as an imagine, is a type of file that contains machine instructions that a CPU can actually execute; these instructions are written in a low-level machine language, like assembly.
+   The process of compiling a program involves the translation of the human-readable program source code into corresponding machine instructions, which are then saved as an executable file.
+   
+   a process - is an instance of a running executable that the kernel has loaded into memory and started executing.
+   several processes can be instantiated from the same executable, though they do not need to be in the same state - for example, two separate web browser windows can be open to different websites at the same time.
+   the kernel assigns system resources, such as memory, to each process.
+   
+   a thread - is the smallest unit within a process that can be assigned for execution on the CPU. A process may contain multiple threads, each of which share the pool of system resources that the kernal has allocated to the process.
+   in systems that support it, multithreading or multitasking may allow a process to execute multiple threads.
+
+**process structure in memory**
+During process creation, the OS allocates a block of memory to be used by that process. All of that process’s execution of code operations occurs within this memory block, which is divided into five main parts: text, data, Block Started by Symbol (BSS), heap, and stack. An additional piece of a process’s memory is reserved for use by the OS, and is used when the OS takes operations to manage that process.
+
+- Text: Contains the machine instructions loaded from the executable. This is the actual set of instructions that the CPU executes.
+- Data: Stores any variables that were initialized by the programmer or compiler. The initialization process requires the compiler to know how much memory is needed to store the variable, as well as the initial, non-zero value of the variable.
+- BSS: Used to store variables that have been instantiated, but not initialized. This means that the compiler is able to determine how much memory is needed to store a variable, but the program has not set its value, or has set its value explicitly to zero.
+- Heap: Used to dynamically allocate memory for variables whose sizes cannot be known until runtime, i.e., the actual execution of the program. This usually occurs when the size of the variable differs each time the program is run, so the compiler cannot assign a chunk of memory to the variable right off the bat. The heap can freely grow and shrink during program execution.
+- Stack: Last In, First Out (LIFO) data structure used to store stack frames, which contain information about the current  execution sta te of the process. If a process has multiple threads, each thread is given its own stack. As an example, imagine that a thread is currently executing function1(), which contains a call to another function, function2(). When the call to function2() occurs, the current state of function1() is saved into the stack frame for function1() and placed on top of the stack. Then, a new stack frame is created to initialize function2(), itself being placed on top of the stack. When function2() eventually completes, execution is returned to function1() by loading the saved function1() stack frame, which includes loading the code within function1() that lies directly after the call to function2().
+
+![image](https://github.com/user-attachments/assets/7b04d05e-3b6b-4126-9bd7-7b4190d94a73)
+
+**Lifecycle of a Process**
+The OS is responsible for creating, managing, and scheduling processes for execution on the CPU as they proceed throughout their lifecycle.
+he management of process execution on a system relies heavily on a process’s state. There are five main states that a process can be in, though specific OSs may use more granular states than those described.
+
+Five main states a process can be in - 
+
+- When in the Created or New state, processes are waiting to be loaded into main memory (Random Access Memory [RAM]). The OS has not yet allocated system resources to the process, or is just beginning to allocate these resources.
+- A process in the Ready or Waiting state has been fully loaded and is waiting to be scheduled for execution. Multiple processes are generally in this state at a given time.
+- A Running process is one that is currently running on one of the CPU’s hardware cores, in either kernel mode or user mode. Processes scheduled to run in the CPU do so for a short while, before being swapped out with another process that is in the Ready state. A Running process that is swapped out of the CPU generally returns to the Ready state.
+- A Blocked process is waiting for an event that is outside of its control to occur. For example, a process that is waiting for an incoming network connection might be in the Blocked state while it waits for the connection to occur. Upon receiving the connection, the OS moves that process from Blocked to Running so it can handle the incoming connection.
+- A Terminated process has completed its execution, or was explicitly killed by some other process or system action. Killing a process is a common phrase when discussing process termination.
+
+  **process termination complications**
+  
+  A terminated process must wait for its parent process to read its exit status before the OS can free its assigned Process Identifier (PID) for use elsewhere.
+  Until the parent reads its child’s exit status, the child process continues to exist in the Terminated state.
+  The name for such a process is a zombie process. Depending on the specifics of the parent process, a zombie process may continue to exist indefinitely.
+
+  An orphan process is a child process whose parent process has terminated before it. This may lead to the child process being adopted by a new parent process — usually the root process of the system or another process specifically delegated by the OS to adopt orphan processes — but not always.
+
+
+**Process Identifiers**
+
+When a process is created — also referred to as spawning a process — the OS assigns that process a number in order to identify that process within the system. This number is known as a PID. One key thing to note about PIDs is that they are unique only for currently executing processes within a single system — two different systems may assign the same PIDs to different processes, and a system may reuse a PID if it is not currently being used.
+
+**Daemon Processes**
+
+The root process is responsible for loading every other process necessary for the system to function. Usually, the root process delegates some of these responsibilities by spawning other processes known as daemon processes, or daemons, which manage certain components across the entire OS. For example, a network daemon might handle all network communication for the OS. Daemons usually run in the background and do not require direct interaction with a system user. In fact, daemons generally run continuously, even if no account is logged into the system.
+
+
+On Windows machines, daemon processes are referred to as services.
+
+**Windows | core processes**
+
+![image](https://github.com/user-attachments/assets/b6dff871-7fe9-442f-beeb-835ca963d29f)
+
+https://rcs08-minio.pcte.mil/portal-bucket/portal/documentation/learning-app-event/8939acb1-deb4-4502-bbab-138332148370/SANS%20Find%20Evil%20-%20Know%20Normal.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=PCTE-SimSpaceCorp%2F20241002%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20241002T172624Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&response-content-disposition=inline&X-Amz-Signature=99d0d3332d19e0382d277b527aa3d50ae9537a812a27d3572ad0c22b3a796693
+
+** Core Processes | Linux **
+
+**Runlevels**
+
+In legacy systems that still use the init process, runlevels are used to define this desired state. Standard runlevels are defined between 0–6 — each number defines a different state for the system. For example, runlevel 6 is commonly used to reboot the system.
+
+When the system is booted, the init process loads a single runlevel — usually the default level configured by the system — by referencing that runlevel’s associated /etc/rc#.d/ directory, (where # is replaced with the runlevel’s number). This directory contains a list of links to specific scripts located within /etc/init.d/; these scripts are executed sequentially and are used to start or stop various processes required for the system to boot into a specific runlevel. After the machine has been fully booted, the system’s runlevel can be changed on the fly, causing the system to reference the /etc/rc#.d/ directory for the desired runlevel and begin the process anew. Runlevel scripts can be added by a system administrator in order to further configure the system’s functionality.
+
+**systemd Targets**
+
+Instead of runlevels, systemd loads services that are organized into targets. Though the term target is approximately analogous to the term runlevel, targets and services offer an incredibly large degree of control over the system. A service may be as simple as a one-for-one recreation of a runlevel script, but can include advanced control routines that test for dependencies prior to service execution, such as whether networking is enabled. Runlevels must execute scripts in a linear order, while systemd loads any services in parallel that it can. Additionally, systemd can use sequential targets as a series of checkpoints, which makes sure that the system has entered a predefined state before continuing to load and execute additional targets. Similarly to runlevels, targets can also be changed once the system has booted in order to switch system states.
+
+**Analyzing linux processes**
+
+-  UID column: Illustrates that users are associated with each process, which is also true within Windows systems. The Unix root user, by default, is allowed to access everything within the system, which includes the ability to execute things within kernel mode in the CPU.
+-  PPID column: Shows the PPID of all the processes on the system. The red arrows at the bottom show the parent/child relationships between several processes involved in the execution of the ps command.
+- CMD column, bracketed items: Items surrounded by brackets indicate that the processes are executing in kernel mode within the CPU. The very first item in this list is kthreadd — the kernel thread daemon — which is responsible for handling the execution of kernel mode threads. It is no surprise that other kernel threads list kthreadd (PID 2) as their parent process!
+- CMD column, non-bracketed items: Items not surrounded by brackets indicate processes executing in user mode within the CPU. The highlighted area shows the results of supplying the -H option to the ps command — processes are displayed in a hierarchical relationship, with child processes having their names tabulated underneath their parent process.
+
+**Memory Management**
+
+During process creation, the kernel allocates memory to a process — this memory contains the stack, heap, data, text, and BSS sections as described earlier. The kernel is responsible for managing the usage of most of this memory during the lifecycle of the process. When a process terminates, the kernel is responsible for deallocating any memory that was used by the process, freeing it up to be reallocated to other processes.
+
+** Virtual Memory ** - allows every process to think that it has the full memory capability
+
+Virtual memory is a memory management technique used by modern OSs in order to more effectively manage and secure this key system resource. During process creation, a program and any system libraries it relies on are loaded into the process’s virtual memory. When this process later needs to access or change data held in its virtual memory, it does so via a virtual memory address — the location of the data in its virtual memory. Dedicated hardware known as the Memory Management Unit (MMU) translates these virtual memory addresses into physical memory addresses — actual locations within physical memory such as RAM. To the process, its virtual memory is always present and is always arranged contiguously. 
+
+
+**Page Files and Swap Files** page file on windows side, swap file on nix side.
+
+Windows stores all inactive memory pages inside a page file named pagefile.sys. The default location of this file is located in the root directory of the disk (i.e., C:\pagefile.sys).
+
+Linux instead uses the term swap space to refer to the locations on the disk where inactive memory pages (also known as swap files) are stored. Two separate swap spaces exist. The swap partition is a special location for swapping operations that is reserved directly by the filesystem — no files other than swap files are allowed to exist within the swap partition. Linux also supports the creation of generic swap files within accessible portions of the filesystem. These generic swap files can be created by a system administrator to allow for more swap space.
+
+Page and swap files are important, since they contain sections of a process’s virtual memory. When performing a forensic or security investigation of a system, these files may serve as a useful evidence source.
+
+
+
+**File Management**
+
+Many processes require the ability to read and write files to a long-term storage medium, such as a hard drive. In order to be used by the system, such storage media must be formatted into a filesystem, which defines a format for organizing, storing, and tracking files. To do this, the filesystem tracks some metadata information about each file, in addition to that file’s actual contents. The tracking of this metadata is done within a record for each file present within the filesystem. Additionally, filesystems maintain a directory to quickly look up the record of each file in the filesystem. A filesystem's directory and list of records exist in a reserved portion of the filesystem. Many filesystem implementations exist; they differ in size, speed, security, functionality, and other factors.
+
+
+**Filesystem Internals**
+
+When the kernel receives a request to access a file, it searches through the filesystem’s directory for the appropriately named file, using the directory to determine the location of that file’s associated record in a record list. From the file’s record, the kernel can retrieve metadata information about the file, which includes the physical location of the file’s raw data held within the computer’s hard drive. Figure 1.1-33 shows how the kernel might look for a file in a filesystem, though the exact implementation can differ wildly depending on the filesystem.
+
+
+**Metadata in Filesystems**
+
+Filesystem metadata is stored within a file’s record. This metadata may include the file’s physical location on disk, its size, any associated permissions, and a set of timestamps describing when a file was last modified, accessed, or created. Different filesystem implementations keep track of different metadata information.
+
+
+Filesystem metadata is a fantastic source of information about the system. Later in this lesson, filesystem metadata is used as an evidence source for a simple investigation.
+
+
+**Virtual Filesystems**
+
+A Virtual Filesystem (VFS) is an abstract layer that lies between client applications and the concrete filesystem. A VFS is usually implemented as a kernel module within the OS kernel, and defines a common language that client applications and filesystems can use to communicate, regardless of the specifics of the underlying filesystem. When a client application wants to interact with a filesystem, it uses a system call to ask the kernel for help; the kernel then safely interacts with the appropriate VFS, which performs one last translation step in order to communicate with the concrete filesystem. This offers a key advantage to software developers: rather than writing a ton of extra code to support many different filesystems, the program simply needs to be able to pass file operation instructions to the kernel via a system call.
+
+
+**Types of Filesystems**
+**Windows Filesystems**
+
+File Allocation Table
+
+
+File Allocation Table (FAT) is a basic filesystem that uses a specific construct to reference files stored on a disk. FAT comes in several variants, the oldest of which, FAT8, has been around since the 1970s. FAT12, FAT16, and FAT32 are updated versions of the FAT filesystem, and support increasingly larger disk sizes, single file sizes, and longer filenames. FAT12 was used in the very first version of Microsoft Disk Operating System (DOS), and was later replaced with FAT16 and FAT32 in newer Windows OSs. Windows switched away from using the FAT filesystem as a default filesystem with the release of Windows NT 3.1 in 1993.
+
+
+FAT32 is still used today as the default filesystem for many types of removable media devices, such as flash drives, SD Cards, and external hard disk drives. This is because FAT32 is supported by a wide variety of different systems, which makes it a natural choice for use on removable media storage devices.
+
+
+Notably, FAT filesystems have no built-in security mechanisms; FAT filesystems do not hold any information about the permissions that should be associated with each file.
+
+
+**New Technology File System**
+
+New Technology File System (NTFS) is a journaling filesystem originally developed by Microsoft to replace FAT in Windows NT 3.1. NTFS has undergone several revisions during its lifetime, and provides several enhancements to filesystem performance, efficiency, capacity, resilience, and security. NTFS is still the most common filesystem in use on Windows OSs.
+
+Another big reason behind the change from FAT to NTFS is that NTFS natively implements security mechanisms that allow for access controls to be applied directly within the filesystem. NTFS contains two Access Control Lists (ACL), which are associated with each file or directory; the Discretionary Access Control List (DACL) and the System Access Control List (SACL). The DACL is responsible for implementing basic permissions that define which users and/or groups can perform actions, reading, writing, execution, or deletion of a file or folder. The SACL is responsible for determining how the system should audit attempted actions being performed against a file or folder as well as whether those actions succeeded or not. For example, the SACL can be used to log the username of anyone attempting to delete an important file.
+
+
+**Resilient File System**
+
+Resilient File System (ReFS) is another filesystem developed by Microsoft, intended to be the next generation Windows filesystem to replace NTFS. According to Microsoft, ReFS was designed to maximize data availability, scale efficiently to large data sets across diverse workloads, and provide data integrity with resiliency to corruption. It seeks to address an expanding set of storage scenarios and establish a foundation for future innovations. ReFS was originally released as part of the Windows Server 2012 OS, but has still not seen widespread adoption.
+
+
+**Index Nodes**
+
+The Linux kernel supports a large variety of filesystems compared to other OSs. This is because of a construct called the index node (inode) that exists as an abstraction layer within the Linux kernel. Inodes are an integral part of the Linux kernel; all file management behavior within Linux OSs deals directly with these inodes, requiring only that the Linux VFS perform small translation steps between the Linux kernel and the underlying concrete filesystem.
+
+
+The behaviors made available by inodes include the creation of hard links and symbolic links, which themselves can be used in fairly interesting ways.
+
+
+**Hard Links**
+
+When a regular file is created on a Linux machine, the filesystem creates a new record for the file within its record list, and provides a unique ID number back to the Linux kernel. The kernel uses this ID number as the inode ID; the inode ID number is used by the kernel to perform operations against the file located on the filesystem.
+
+
+Making a hard link to a file creates a new file as normal, but instead of its own inode, the hard link directly references the inode of a different file. Follow the steps below to explore the properties of hard links.
+
+
+**Symbolic Links** - adversaries are more likely to manipulate sym links. Sym links reference using name/location, hard links reference using inode.
+
+Symbolic links, also known as symlinks or softlinks, reference a file by that file’s name and location on the filesystem, rather than its inode value. Advantages of symlinks include creating a link to directory locations, and to files or directory locations located on a completely different filesystem. This is in contrast to hard links, which can only reference a file as directory locations do not have their own inode values. Additionally, hard links can only reference files within a single filesystem, since they rely on the filesystem’s internal inode value.
+
+
+Unfortunately, symlinks do have a drawback; because a symlink does not reference an inode value, moving or deleting the target of the symlink (i.e., the file or directory location that the symlink is referencing) breaks the symlink.
+
+
+Explore the properties of symlinks by following the steps below. These steps should be performed on the cda-kali-hunt machine after running the cd ~/tmp/ command.
+
+**Network management**
+**Sockets**
+ A socket is a virtual construct that acts as the endpoint for a communication link on the system. Many sockets can be open on the system at a given time. A client application that is running on the system can request a socket from the kernel, and use system calls to read or write data to the socket.
+
+ **Socket System Calls**
+ - bind: The application requests the kernel to bind a previously instantiated socket to a network port or to a local file. Binding to a local file is used for communication within the local system only. The bind syscall must be used if the socket intends to listen for incoming connections, and does not need to be used otherwise.
+ - listen: The application puts the socket into a listening state, meaning that the client application using the socket is actively ready to handle incoming connections. When an incoming connection is received, the application must choose to accept the connection or terminate it.
+ - accept: The application accepts an incoming connection to a listening socket. This does not affect the listening socket; a new socket object is created to handle the accepted connection. The accept syscall is mainly used by a listening socket wishing to establish a Transmission Control Protocol (TCP) connection; it is not used for User Datagram Protocol (UDP) communications.
+ - connect: The application uses the socket to establish a connection with a different listening socket, which may be on the local system or located on some external network. To connect over a network to a socket present on an external system, the socket must reference the external system’s address, (usually an Internet Protocol [IP] address), and the network port that a listening socket is bound to. The connect syscall is mainly used by a connecting socket wishing to make a TCP connection to a listening socket; it is not used for UDP communications.
+ - recv or recvfrom: Short for receive. The application reads data from the socket. The recv syscall can be used as a shortcut by certain applications that have already established a connection with another socket; recvfrom is used otherwise.
+ - send or sendto: The application sends data over the socket, which is transmitted to the corresponding socket on the other end of the connection. The send syscall is used as a shortcut by certain applications that have already established a connection; sendto is used otherwise.
+ - close: The application closes the established connection. This may be performed by the listening socket or the connecting socket, and is mainly needed to close TCP connections; UDP communications do not maintain the concept of a connection, so there is nothing to close.
+
+**helpful network commands**
+socket information: netstat -ntu
+socket statistics: ss -ntu
+nic info: ifconfig
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+ 
           
 
 
