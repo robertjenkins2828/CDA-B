@@ -241,6 +241,89 @@ socket statistics: ss -ntu
 nic info: ifconfig
 
 
+**Additional Kernel Capabilities**
+Peripheral and I/O Device Management - Modern computers support many different types of peripherals, such as keyboards, mice, speakers, wireless transceivers, and others. These peripherals are generally known as Input/Output devices, since they ultimately provide either an input stream to a system (keyboards, mice, microphones, etc.), or translate a stream of system output into some other form (audio playback, printing, video display, etc.). 
+
+Security Management - Security management is handled by a kernel component known as the security subsystem or security kernel. This portion of the kernel implements basic security procedures within the system. For example, the security kernel can determine if a particular process should be allowed to read, write, or execute a given file based on the permissions applied to the system. 
+
+Kernel Drivers - As stated earlier, the minimum capability required for a kernel to operate is the ability to facilitate the execution of software instructions on the system’s hardware. Though this suffices for simple systems, most modern computers require additional advanced capabilities such as the ones discussed over the past few tasks. In modern OSs, many of these additional components are implemented as kernel modules or kernel drivers. These components do not exist within the core functionality of the kernel but are instead loaded and unloaded by the core kernel as needed. 
+
+![image](https://github.com/user-attachments/assets/a173ef45-4ac1-47ff-9e44-75d1b3c1d266)
+
+![image](https://github.com/user-attachments/assets/c0910c2d-0629-45ed-9491-8fb2860fdf7e)
+
+![image](https://github.com/user-attachments/assets/491d27fc-3e5a-4192-a38e-b01101c34602)
+
+
+**linux info**
+**Everything is a file**
+
+Unix-like OSs are built with the idea that everything is a file. While this is not true in the literal sense, it speaks to an embedded feature of various Unix-like OSs — many system resources are exposed to the system’s applications via file descriptors. These file descriptors allow other applications to interact with a large variety of different resources in the same way that they would interact with a regular file
+
+**Types of Kernels**
+Linux and Windows differ because they vary fundamentally in their approaches to OS architecture. Linux uses a monolithic kernel approach — the entire OS was designed to run in kernel mode. In contrast, Windows uses a hybrid kernel approach — the OS was designed such that many larger components, such as the environment subsystems and OS-integral subsystems, run in user mode. A third approach, known as the microkernel approach, is utilized by some other OSs. The microkernel approach moves as much functionality as possible into user mode execution — except for a very small core kernel. Each approach has distinct advantages and disadvantages, such as faster speeds or more flexibility, though discussing these pros and cons is out of scope for this lesson.
+
+**Windows Registry**
+
+Though it is not included within the Windows architecture diagram, Windows OSs make use of a construct called the registry to store system and user configuration information. The registry is a hierarchical database that stores information in key:value pairs, persists through system reboots by being saved to the system’s hard disk, and quickly referenced by both user mode and kernel mode processes running on the system. Information contained in the registry can be secured with a standard set of permissions; create, read, update, and delete permissions can be assigned by the owner of a particular registry key in order to limit others' access to the key.
+
+The registry is separated into several hives, which contain nested registry keys. Registry keys contain a data type and an associated value.
+
+**Linux Configuration files**
+hese files are known as configuration files, and are used similarly to the Windows registry in order to control how a system or application functions. Configuration files are commonly located within the system’s /etc directory (for system-level configurations), within an application’s installation folder (for application-level configurations), or within a user’s home directory (for user-level configurations). Certain applications or system tasks may involve multiple configuration files that are located in several different locations throughout the system.
+
+
+**Forensic Principals**
+
+**Stages of Digital Forensics**
+The digital forensics process can be divided into the following stages: 
+- Identification of evidence sources
+- Preservation of evidence sources
+- Acquisition of data from evidence sources
+- Analysis and interpretation of the acquired data
+- Presentation of the analysis results
+
+
+**windows files**
+
+Recall that the Windows OS utilizes the NTFS filesystem. NTFS keeps track of four timestamps for each file record stored in the filesystem’s MFT. Three of these are accessible from the Properties tab.
+- File Created: The date on which the file was first created on the filesystem. This timestamp should never change during normal operations, though there are trickier ways to force this time to update.
+- File Accessed: The most recent time the file was accessed. Moving, opening, or reading metadata information about a file is considered an access and causes this value to change. Anti-virus scanners and Windows system processes, which frequently interact with files across the entire system, can also trigger this timestamp to update.
+- File Modified: The most recent time that the file’s contents were modified. For example, if a text file was opened, had a few characters added to it, and was re-saved, the modified timestamp would update.
+- MFT Last Written: The most recent time that the file’s record within the MFT was updated. This timestamp is not included within the standard Windows interface, and necessitates direct inspection of the MFT record, usually via a forensics tool.
+
+
+**Portable Executable Format**
+The Portable Executable (PE) format is a common file format across many types of executable files on Windows systems. The PE format contains a compiled executable program, along with instructions for how the OS should load that program into memory. The most common file types that make use of the PE format are:
+
+- Stand-alone executables (.exe)
+- Dynamic-link libraries (.dll)
+- Device driver files (.sys)
+- Control panel items (.cpl)
+
+**PE Structure**
+All PE files begin with the following three sections:
+- DOS Header
+  DOS was the precursor to the Windows OS. Windows continued to rely on certain portions of DOS until the release of Windows XP, so executable code had to play nice with DOS. The DOS header is still present in all PE files today.
+- DOS stub
+  A stub is a small program or piece of code that is executed by default when an application's execution begins. For Windows executables that cannot be run on DOS systems, an error message This program cannot be run in DOS mode. is printed.
+- PE file header
+  This contains the actual start of the PE file, which begins telling the OS how to load the rest of the executable code into memory.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
