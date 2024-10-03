@@ -418,6 +418,9 @@ The first step of the OP is Objectives, Effects, and Guidance. When conditions o
 
 These details are communicated in a Planning Order (PLANORD) followed closely by a Tasking Order (TASKORD). That TASKORD should clearly communicate intent and requirements to ensure the operational level planning element, CPT, and supported command have necessary information to drive accurate and effective CPT mission planning.
 
+**Mission Analysis**
+The CPT plays an important role in the MA process. During MA, the CPT conducts a technical survey, a site survey, terrain mapping and analysis, and adversary analysis.
+
 **terrain identification and prioritization**
 
 Terrain Identification and Prioritization defines mission scope as it pertains to initial objectives, intended effects, and commander guidance. Analysis of the supported organization’s mission and resources during Mission Analysis (MA) will result in validation and assessment of Mission Relevant Terrain in Cyberspace (MRT-C), and assessment of the local network or system security. MRT-C assessments are based on, and conducted in conjunction with, the mission owner’s detailed understanding of their network terrain. Although not a standalone CPT function, a prerequisite to successful CPT missions is the ability to validate or verify mission owners’ identification, enumeration, and characterization of the protected networks, systems, or assets to ensure an accurate common operating picture and identify specific terrain in cyberspace.
