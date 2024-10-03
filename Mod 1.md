@@ -398,6 +398,9 @@ When a frame reaches a switch, if the DMAC in the frame does not match a known M
 ![image](https://github.com/user-attachments/assets/8ac911ef-3953-4732-8625-217e39573356)
 
 
+![image](https://github.com/user-attachments/assets/ccbe3246-59c2-478b-b029-98768365e6a4)
+
+
 
 
 
