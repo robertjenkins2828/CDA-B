@@ -403,11 +403,57 @@ When a frame reaches a switch, if the DMAC in the frame does not match a known M
 
 
 
+**operations, policies, procedures, and regulations**
+
+There are three triggers that generally initiate the CPT operations process:
+- Threat Intelligence: A Threat Intelligence report or warning may trigger CPT hunt, clear, enable hardening, and assessment functions.
+- Campaign Plan: CPT employment, in support of Combatant Command (CCMD) campaign plans, increases critical asset protection prior to operational need.
+- Detect Malicious Cyberspace Activity (MCA): Whether discovered by local network protection assets, network owners, or indicated by threat intelligence reporting, CPT hunting and clearing entails conducting reconnaissance and counter-reconnaissance on supported commanders’ networks or systems to gain and maintain contact with an adversary, or further develop a situation.
+
+**objectives, effects and guidance**
+
+This step in the operations process generates the high-level objectives that the CPT attempts to achieve in the course of their mission. The CWP states:
+
+The first step of the OP is Objectives, Effects, and Guidance. When conditions or requirements trigger a CPT mission, the operational planning section determines the appropriate CPT functions and capabilities before developing preliminary objectives, intended effects, and commander’s guidance. The operational planning section is also responsible for assessing existing command relationships and making recommendations for potential additions or changes to facilitate and enable the CPT mission.
+
+These details are communicated in a Planning Order (PLANORD) followed closely by a Tasking Order (TASKORD). That TASKORD should clearly communicate intent and requirements to ensure the operational level planning element, CPT, and supported command have necessary information to drive accurate and effective CPT mission planning.
+
+**terrain identification and prioritization**
+
+Terrain Identification and Prioritization defines mission scope as it pertains to initial objectives, intended effects, and commander guidance. Analysis of the supported organization’s mission and resources during Mission Analysis (MA) will result in validation and assessment of Mission Relevant Terrain in Cyberspace (MRT-C), and assessment of the local network or system security. MRT-C assessments are based on, and conducted in conjunction with, the mission owner’s detailed understanding of their network terrain. Although not a standalone CPT function, a prerequisite to successful CPT missions is the ability to validate or verify mission owners’ identification, enumeration, and characterization of the protected networks, systems, or assets to ensure an accurate common operating picture and identify specific terrain in cyberspace.
+
+**technical survey**
+The CPT carries out a technical survey of the supported network. The purpose of the survey is to identify MRT-C. This identification process assists leaders in understanding how the supported commander’s organization relies on cyberspace. The outputs of MA determine which areas of the network are mission essential. MA also aids in understanding which parts of the supported commander’s network, if disrupted, seized, or lost, risks operational culmination or mission failure (CWP 3-33.4). 
+
+**site survey**
+The CPT conducts a site survey with a focus on understanding the supported organization’s mission statement, mission essential functions and priorities, and meeting with key leadership (CWP 3-33.4). The site survey includes a leader’s reconnaissance by the CPT, mission element, or crew lead, or other designated CPT leader, to secure necessary information, assess requirements and challenges, and broker relationships prior to the operation (CWP 3-33.4). 
+
+**Terrain mapping and analysis**
+The mission partner and the CPT work together to conduct terrain mapping and analysis.  Appendix B of CWP 3-33.4 states, A detailed logical network map is the CPT’s foundational visualization tool, must scale appropriately to the situation, and will guide CPT internal planning and mission conduct (CWP 3-33.4). The CWP image shown below provides a sample logical network map that may be created and used by a CPT during MA. 
 
 
+**capability analysis and force allocation / ROE**
 
+The CPT coordinates with the Operational Planning section and supports the commander’s staff to coordinate mission rules of engagement (ROE) informed by the initial capabilities analysis. ROE in the context of CPT operations refers to the constraints and limitations under which the CPT hunts and/or clears when MCA is encountered as agreed on by the supported network owner and the supporting commander.
 
+**Force Availability, Selection, Preparation**
+The CPT also analyzes available equipment based on locally protected network or system configurations to determine necessary hardware and applications. This step also includes assessing the potential for on-site or remote operations, and selecting equipment and hardware to enable mission conduct across multiple domains or classification levels.
 
+**The CPT tactical mission plan normally:**
+- Articulates tactical objectives and tasks;
+- Pairs capabilities to tactical tasks;
+- Finalizes sensor placement schemes;
+- Establishes a data collection and sensor management plan;
+- Establishes (tactical) mission phases;
+- Develops contingencies;
+- Develop tactical assessments;
+- Establishes contracts; and
+- Establishes the communications plan.
+
+KT-C = marked advantage
+
+**measures of performance / assessment**
+The final step of the OP is Assessment. During this step, the OP section assessment team analyzes MOPs to determine whether operational tasks were satisfied to create desired effects, and analyzes MOEs to determine whether creation of desired effects achieved operational objectives. The OP section assessment team reviews data and information reported by the CPT in accordance with the operational assessment plan. Additional inputs from the CPT, the supported organization, and potentially the intelligence community may be used to facilitate accurate operational assessments.
 
 
 
