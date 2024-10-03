@@ -311,6 +311,98 @@ All PE files begin with the following three sections:
   This contains the actual start of the PE file, which begins telling the OS how to load the rest of the executable code into memory.
 
 
+**scripting primer**
+
+This course uses the following scripting languages, which come with their own pros and cons:
+- Windows batch files
+- PowerShell
+- Bash
+- Python
+
+windows batch files:
+
+     Windows batch file format is usable on all modern versions of Windows. However, the features offered by batch files can be a bit limited and awkward from a modern scripting perspective. Generally, batch files are used for legacy reasons or for simple tasks, although batch files are fairly common as logon scripts. Simple tasks may be easier to perform or deploy from batch files, however as the complexity of the script grows, the more complicated it can be to create these scripts as batch files. Filenames for batch files end in .bat or .cmd, though the exact execution behavior between these two extensions can differ.
+
+ Powershell:
+
+     PowerShell is a .NET-based, cross-platform scripting solution that has native support for remote execution and is deployed by default on modern versions of Windows, and versions of which are deployable on Unix-like platforms. In addition, its usage can be managed via Group Policy on Windows domains. It contains many features that enable richer scripts, such as full support for object-oriented programming, creation of new cmdlets — small commands or scripts written for PowerShell, which typically return a .NET object for further display or manipulation — for reusable scripting functionality, and many built-in cmdlets for commonly used functions. PowerShell script filenames end in .ps1, however, other files used in PowerShell can have other extensions.
+
+  bash:
+
+      Bash scripting is typically used on Unix-like systems, such as Linux, MacOS, Berkeley Software Distribution (BSD), etc. In addition, Bash can be deployed to Windows systems through Windows Subsystem for Linux (WSL), Cygwin, or other similar tools. While often seen as limited, this method of scripting is available on any system using the Bash shell, and after years of experience, it is used fairly often for system maintenance. Z Shell (ZSH) and other shells on Unix-like systems often have fairly similar scripting environments that may be mostly compatible with Bash scripts. Shell scripts — which Bash is a subset of — typically have a filename ending in .sh, though this is by convention only, and is not required. Adversaries often choose not to use this file extension.
+
+Python:
+
+      Python is a programming language often use in scripting. It is cross-platform, and often installed on Unix-like operating systems as well as being deployed on Windows workstations and servers where it is a dependency. Python is well-supported by programming tools that support multiple languages, and has a rich package system available with pip. Python scripts traditionally end in .py, however, this is not necessary and an adversary can choose not to use this file extension.
+
+
+**script editing**
+
+- Syntax Highlighting: Changes the color of text to indicate the category of item that is represented by that text.
+- Autocompletion: Allows the editor to provide probable completions to the text currently being entered (based upon the syntax of the scripting language in use), which can speed up development.
+- Debugging: Allows the pausing of execution of a script or program to view the current state of the environment or manually direct program flow.
+- Script Execution via Hotkey: Executes the script being edited via selecting a button or hotkey, allowing for more rapid execution and development.
+
+**conceptualizing a script**
+- State the problem clearly. This step is vital to ensure that the correct solution is sought out.
+- Determine a big picture solution to the problem.
+- Break the solution down into individual steps that can be performed. If unable to do so, reconsider the solution or research as necessary.
+- Determine how to perform each step in the target language, adjusting overall flow or structure as required based upon feedback here. For steps with many or complex parts, this may require following this process starting back at the beginning for that particular step.
+- Test and deploy the script.
+- Clean up and/or revise as necessary.
+
+
+**Data Types**
+- String: This data type consists of individual characters, often laid out sequentially in memory (i.e., string of characters, thus the name). String encoding varies by language or platform, with American Standard Code for Information Interchange (ASCII) and Unicode Transformation Format–8-bit (UTF-8) being fairly common — both use eight bits or a single byte to represent a single human-readable character.
+- Integer: This data type corresponds to a numeric, whole number, value. The maximum value that can be stored varies based on the platform and/or language. Many languages also have a long — or similarly named — data type that has a larger possible value; some languages also have a short or byte type that stores smaller values.
+- Array: Also known as lists in a scripting context, this collection type can store multiple values. Exact implementations differ by language. Raw binary data is generally handled as an array — or equivalent per language — of bytes, if available.
+- Float: Floating point number — a number with a decimal point attached. This data type can store both very small and very large numbers due to its ability to move the decimal point — thus a floating point. Some languages have smaller and larger versions with less or more precision — sometimes called single and double.
+- Boolean: Value that represents true or false. Often used to control program flow, such as with if/then statements. Many comparison operators return either true or false.
+
+**Powershell Basics**
+**comparison operators**
+-eq: Equal — Returns True if the left and right values are equal. 
+-ne: Not Equal — Returns True if the left and right values are not equal.-
+gt: Greater Than — Returns True if the left value is greater than the right value.
+-ge: Greater Than or Equal — Returns True if the left value is greater than or equal to the right value.
+-lt: Less Than — Returns True if the left value is less than the right value.
+-le: Less Than or Equal — Returns True if the left value is less than or equal to the right value.
+
+**networking review**
+
+![image](https://github.com/user-attachments/assets/4c762783-8134-49b0-bc1c-4d8deb051d10)
+
+switch - moves data along via mac address
+
+display | format of MAC addresses - 
+
+shows an example MAC address table with the addresses changed for simplicity. MAC addresses are represented in a variety of formats for human readability by different applications, but are all identical when processed by the Operating System (OS). Some common formats are xx:xx:xx:xx:xx:xx, xxxx.xxxx.xxxx, xxxx:xxxx:xxxx, and xx.xx.xx.xx.xx.xx.
+
+
+When a frame reaches a switch, if the DMAC in the frame does not match a known MAC address in the CAM table, the switch forwards a copy of the frame to all ports/paths in order to attempt to reach the addressed device. Layer 2 devices separate collision domains. Collision domains can be compared to communications with a two-way radio where only one person can talk at a time. If more than one person — or device on the physical medium — tries to talk at the same time, the communications collide and is lost for all parties. A DMAC of FFFF:FFFF:FFFF is forwarded to all ports/paths by all layer 2 devices, except the port it was received on. This is called the broadcast address at layer 2, but it should not be confused with broadcasts on layer 3.
+
+**ip network components**
+- Network Identifier (ID) (also sometimes known as subnet ID): Portion — # of bits — of an IP address that designates the network on which a host resides — also the base IP address in a network
+- Host ID: Portion — # of bits — of an IP address that designates the host within its network
+- Subnet mask: Mask that specifies which bits are network (binary one) and which bits are host (binary zero)
+- Broadcast address: Last IP address within a network that is reserved to address all hosts in the same network
+- Gateway (also known as next-hop): IP address assigned to a layer 3 device — router — that connects multiple networks together and can route packets between them
+- Default gateway: Layer 3 device used for routing when there is not a more specific gateway specified in the routing table
+
+  **Public and Private IP Addresses**
+  The Internet Assigned Numbers Authority (IANA) is responsible for defining and apportioning IP addresses. IANA apportioned large blocks of IP addresses to Regional Internet Registries (RIR) who then register — or assign — IP address ranges to large organizations. Typically these are registered to very large organizations, governments, and Internet Service Providers (ISP). The owners of the IP address ranges use them as needed for their networks. Due to the shortage of public IPv4 addresses, IANA reserved several network ranges and designated them for private use, and use Network Address Translation (NAT) — or something similar — to communicate with public addresses. This allows a network to have virtually unlimited private hosts and translate them to a much smaller range of public IP addresses for use on the internet. Table 1.3-2 shows some of the reserved and private IP address blocks.
+
+  ![image](https://github.com/user-attachments/assets/4b310b77-85fb-4091-9191-242ab86fb251)
+
+  
+![image](https://github.com/user-attachments/assets/8ac911ef-3953-4732-8625-217e39573356)
+
+
+
+
+
+
+
 
 
 
